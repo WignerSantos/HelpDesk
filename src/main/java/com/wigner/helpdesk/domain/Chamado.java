@@ -5,12 +5,14 @@ import com.wigner.helpdesk.domain.enums.Prioridade;
 import com.wigner.helpdesk.domain.enums.Status;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Chamado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,7 +23,7 @@ public class Chamado implements Serializable {
 
     @CreatedDate
     @Column(updatable = false)
-    @JsonFormat(pattern = "dd/M/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataAbertura;
 
     @JsonFormat(pattern = "dd/M/yyyy")
