@@ -1,14 +1,30 @@
 package com.wigner.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.wigner.helpdesk.domain.enums.Prioridade;
+import com.wigner.helpdesk.domain.enums.Status;
+import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Chamado {
+@Entity
+public class Chamado implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private LocalDate dataAbertura = LocalDate.now();
+    @CreatedDate
+    @Column(updatable = false)
+    @JsonFormat(pattern = "dd/M/yyyy")
+    private LocalDate dataAbertura;
 
+    @JsonFormat(pattern = "dd/M/yyyy")
     private LocalDate dataFechamento;
 
     private Prioridade prioridade;
@@ -19,8 +35,12 @@ public class Chamado {
 
     private String observacoes;
 
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+    @ManyToOne
+    @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
 
     public Chamado() {

@@ -1,26 +1,39 @@
 package com.wigner.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.wigner.helpdesk.domain.enums.Perfil;
+import jakarta.persistence.*;
+
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public abstract class Pessoa {
+@Entity
+public abstract class Pessoa extends BaseEntity implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
 
     protected String nome;
 
+    @Column(unique = true)
     protected String cpf;
 
+    @Column(unique = true)
     protected String email;
 
     protected String senha;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PERFIS")
     protected Set<Integer> perfis = new HashSet<>();
-
-    protected LocalDate dateCriacao = LocalDate.now();
 
     public Pessoa() {
         addPerfil(Perfil.CLIENTE);
@@ -81,14 +94,6 @@ public abstract class Pessoa {
 
     public void addPerfil(Perfil perfil) {
         this.perfis.add(perfil.getCodigo());
-    }
-
-    public LocalDate getDateCriacao() {
-        return dateCriacao;
-    }
-
-    public void setDateCriacao(LocalDate dateCriacao) {
-        this.dateCriacao = dateCriacao;
     }
 
     @Override
