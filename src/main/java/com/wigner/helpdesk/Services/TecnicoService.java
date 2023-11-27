@@ -2,6 +2,7 @@ package com.wigner.helpdesk.Services;
 
 import com.wigner.helpdesk.Services.exceptions.ObjectNotFoundException;
 import com.wigner.helpdesk.domain.Tecnico;
+import com.wigner.helpdesk.domain.dtos.TecnicoDto;
 import com.wigner.helpdesk.repositories.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,13 @@ public class TecnicoService {
 
     public List<Tecnico> findAll() {
         return tecnicoRepository.findAll();
+    }
+
+    public Tecnico create(TecnicoDto tecnicoDto) {
+        tecnicoDto.setId(null);
+
+        Tecnico newTecnico = new Tecnico(tecnicoDto);
+        return tecnicoRepository.save(newTecnico);
     }
 
 }
