@@ -7,6 +7,7 @@ import com.wigner.helpdesk.domain.Tecnico;
 import com.wigner.helpdesk.domain.dtos.TecnicoDto;
 import com.wigner.helpdesk.repositories.PessoaRepository;
 import com.wigner.helpdesk.repositories.TecnicoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,16 @@ public class TecnicoService {
 
         Tecnico newTecnico = new Tecnico(tecnicoDto);
         return tecnicoRepository.save(newTecnico);
+    }
+
+    public Tecnico update(Integer id, @Valid TecnicoDto tecnicoDto) {
+        tecnicoDto.setId(id);
+
+        Tecnico oldTecnico = findById(id);
+        validaPorCpfEEmail(tecnicoDto);
+
+        oldTecnico = new Tecnico(tecnicoDto);
+        return tecnicoRepository.save(oldTecnico);
     }
 
     public void validaPorCpfEEmail(TecnicoDto tecnicoDto) {

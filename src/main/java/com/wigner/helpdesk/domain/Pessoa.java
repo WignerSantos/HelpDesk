@@ -3,6 +3,7 @@ package com.wigner.helpdesk.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wigner.helpdesk.domain.enums.Perfil;
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public abstract class Pessoa implements Serializable {
 
     protected String nome;
 
+    @CPF
     @Column(unique = true)
     protected String cpf;
 
