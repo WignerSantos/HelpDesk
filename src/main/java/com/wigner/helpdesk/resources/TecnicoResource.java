@@ -3,6 +3,7 @@ package com.wigner.helpdesk.resources;
 import com.wigner.helpdesk.Services.TecnicoService;
 import com.wigner.helpdesk.domain.Tecnico;
 import com.wigner.helpdesk.domain.dtos.TecnicoDto;
+import jakarta.validation.Valid;
 import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -37,7 +38,7 @@ public class TecnicoResource {
     }
 
     @PostMapping
-    public ResponseEntity<TecnicoDto> create(@RequestBody TecnicoDto tecnico) {
+    public ResponseEntity<TecnicoDto> create(@Valid @RequestBody TecnicoDto tecnico) {
         Tecnico newObj = tecnicoService.create(tecnico);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
