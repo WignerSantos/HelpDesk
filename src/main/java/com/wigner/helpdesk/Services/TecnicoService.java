@@ -1,5 +1,6 @@
 package com.wigner.helpdesk.Services;
 
+import com.wigner.helpdesk.Services.exceptions.ObjectNotFoundException;
 import com.wigner.helpdesk.domain.Tecnico;
 import com.wigner.helpdesk.repositories.TecnicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class TecnicoService {
 
     public Tecnico findById(Integer id) {
         Optional<Tecnico> obj = tecnicoRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
     }
 
 }
