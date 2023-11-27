@@ -4,6 +4,7 @@ import com.wigner.helpdesk.Services.TecnicoService;
 import com.wigner.helpdesk.domain.Tecnico;
 import com.wigner.helpdesk.domain.dtos.TecnicoDto;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.apache.tomcat.util.http.fileupload.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -50,6 +51,12 @@ public class TecnicoResource {
     public ResponseEntity<TecnicoDto> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDto tecnicoDto) {
         Tecnico oldTecnico = tecnicoService.update(id, tecnicoDto);
         return ResponseEntity.ok().body(new TecnicoDto(oldTecnico));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<TecnicoDto> delete(@PathVariable Integer id) {
+        tecnicoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
