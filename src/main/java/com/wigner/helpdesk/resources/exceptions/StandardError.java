@@ -1,4 +1,4 @@
-package com.wigner.helpdesk.Services.exceptions;
+package com.wigner.helpdesk.resources.exceptions;
 
 import java.io.Serializable;
 
