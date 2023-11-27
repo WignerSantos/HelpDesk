@@ -18,25 +18,30 @@ import java.util.Arrays;
 public class DBService {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private TecnicoRepository tecnicoRepository;
 
     @Autowired
-    private TecnicoRepository tecnicoRepository;
+    private ClienteRepository clienteRepository;
 
     @Autowired
     private ChamadoRepository chamadoRepository;
 
     public void instanciaDB() {
-        Tecnico tec1 = new Tecnico(null, "Valdir Cezar", "63653230268", "valdir@gmail.com", "123");
+        Tecnico tec1 = new Tecnico(null, "George Henrique", "509.100.700-83", "georgehenrique233@gmail.com", "123");
         tec1.addPerfil(Perfil.ADMIN);
 
-        Cliente cli1 = new Cliente(null, "Linus Torvalds", "80527954780", "torvalds@gmail.com", "123");
+        Tecnico tec2 = new Tecnico(null, "Leozinho Vitorio", "309.320.430-10", "leozinhovito@gmail.com", "123");
+        tec1.addPerfil(Perfil.ADMIN);
 
-        Chamado c1 = new Chamado(null, Prioridade.MEDIA, Status.ANDAMENTO, "Chamado 01", "Primeiro chamado", cli1, tec1);
+        Cliente cli1 = new Cliente(null, "Linus Torvalds", "990.504.720-44", "linustorvalds@hotmail.com", "123");
+        Chamado ch1 = new Chamado(null, Prioridade.ALTA, Status.ANDAMENTO, "Chamado 01", "Primeiro Chamado", tec1, cli1);
 
-        tecnicoRepository.saveAll(Arrays.asList(tec1));
-        clienteRepository.saveAll(Arrays.asList(cli1));
-        chamadoRepository.saveAll(Arrays.asList(c1));
+        Cliente cli2 = new Cliente(null, "Steve Jobs", "231.432.756-57", "stevejobs@protonmail.com", "123");
+        Chamado ch2 = new Chamado(null, Prioridade.MEDIA, Status.ABERTO, "Chamado 02", "Segundo Chamado", tec2, cli2);
+
+        tecnicoRepository.saveAll(Arrays.asList(tec1, tec2));
+        clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+        chamadoRepository.saveAll(Arrays.asList(ch1, ch2));
     }
 
 }

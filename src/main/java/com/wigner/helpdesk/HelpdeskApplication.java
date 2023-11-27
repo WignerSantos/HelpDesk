@@ -21,7 +21,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import java.util.Arrays;
 
 @SpringBootApplication
-@EntityScan("com.wigner.helpdesk.domain")
 @EnableJpaAuditing
 public class HelpdeskApplication {
 

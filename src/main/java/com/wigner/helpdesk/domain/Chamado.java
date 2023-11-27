@@ -4,15 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wigner.helpdesk.domain.enums.Prioridade;
 import com.wigner.helpdesk.domain.enums.Status;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 public class Chamado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -21,10 +18,8 @@ public class Chamado implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @CreatedDate
-    @Column(updatable = false)
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataAbertura;
+    private LocalDate dataAbertura = LocalDate.now();
 
     @JsonFormat(pattern = "dd/M/yyyy")
     private LocalDate dataFechamento;
@@ -48,7 +43,7 @@ public class Chamado implements Serializable {
     public Chamado() {
     }
 
-    public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Cliente cliente, Tecnico tecnico) {
+    public Chamado(Integer id, Prioridade prioridade, Status status, String titulo, String observacoes, Tecnico tecnico, Cliente cliente) {
         this.id = id;
         this.prioridade = prioridade;
         this.status = status;

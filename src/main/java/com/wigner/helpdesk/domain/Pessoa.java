@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.wigner.helpdesk.domain.enums.Perfil;
 import jakarta.persistence.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -13,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-public abstract class Pessoa extends BaseEntity implements Serializable {
+public abstract class Pessoa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,6 +33,9 @@ public abstract class Pessoa extends BaseEntity implements Serializable {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PERFIS")
     protected Set<Integer> perfis = new HashSet<>();
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    protected LocalDate dataCriacao = LocalDate.now();
 
     public Pessoa() {
         addPerfil(Perfil.CLIENTE);

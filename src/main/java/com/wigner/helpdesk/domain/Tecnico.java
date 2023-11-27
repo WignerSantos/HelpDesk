@@ -1,7 +1,5 @@
 package com.wigner.helpdesk.domain;
 
-import com.wigner.helpdesk.domain.Chamado;
-import com.wigner.helpdesk.domain.Pessoa;
 import com.wigner.helpdesk.domain.enums.Perfil;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -18,6 +16,7 @@ public class Tecnico extends Pessoa {
     private List<Chamado> chamados = new ArrayList<>();
 
     public Tecnico() {
+        super();
         addPerfil(Perfil.CLIENTE);
     }
 
@@ -33,4 +32,5 @@ public class Tecnico extends Pessoa {
     public void setChamados(List<Chamado> chamados) {
         this.chamados = chamados;
     }
+
 }
