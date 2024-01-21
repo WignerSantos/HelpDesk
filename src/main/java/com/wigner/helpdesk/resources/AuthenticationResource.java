@@ -1,14 +1,16 @@
 package com.wigner.helpdesk.resources;
 
 import com.wigner.helpdesk.domain.dtos.CredenciaisDto;
-import com.wigner.helpdesk.domain.dtos.JwtResponseDto;
 import com.wigner.helpdesk.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
@@ -27,7 +29,7 @@ public class AuthenticationResource {
 
         var token = tokenService.generateToken(credenciaisDto.getEmail());
 
-        return ResponseEntity.ok(new JwtResponseDto(token));
+        return ResponseEntity.ok(token);
     }
 
 }
