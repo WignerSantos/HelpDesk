@@ -29,9 +29,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             if(token != null) {
 
             var subject = tokenService.validateToken(token);
-
             var pessoa = pessoaRepository.readByEmail(subject);
-
             var user = new UserSS(pessoa.get().getId(), pessoa.get().getEmail(), pessoa.get().getSenha(), pessoa.get().getPerfis());
 
             var userP = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
