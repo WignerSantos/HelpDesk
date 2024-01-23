@@ -4,7 +4,6 @@ import com.wigner.helpdesk.domain.dtos.TecnicoDto;
 import com.wigner.helpdesk.domain.enums.Perfil;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import org.hibernate.annotations.TenantId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +25,7 @@ public class Tecnico extends Pessoa {
     public Tecnico(Integer id, String nome, String cpf, String email, String senha) {
         super(id, nome, cpf, email, senha);
         addPerfil(Perfil.CLIENTE);
+        addPerfil(Perfil.TECNICO);
     }
 
     public Tecnico(TecnicoDto obj) {
