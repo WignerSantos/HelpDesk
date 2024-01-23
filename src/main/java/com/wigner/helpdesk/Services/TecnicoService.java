@@ -9,6 +9,7 @@ import com.wigner.helpdesk.repositories.PessoaRepository;
 import com.wigner.helpdesk.repositories.TecnicoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,9 @@ public class TecnicoService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     public Tecnico findById(Integer id) {
         Optional<Tecnico> obj = tecnicoRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id));
@@ -37,6 +41,7 @@ public class TecnicoService {
         tecnicoDto.setId(null);
 
         validaPorCpfEEmail(tecnicoDto);
+        tecnicoDto.setSenha(encoder.encode(tecnicoDto.getSenha()));
 
         Tecnico newTecnico = new Tecnico(tecnicoDto);
         return tecnicoRepository.save(newTecnico);
@@ -44,8 +49,12 @@ public class TecnicoService {
 
     public Tecnico update(Integer id, @Valid TecnicoDto tecnicoDto) {
         tecnicoDto.setId(id);
-
         Tecnico oldTecnico = findById(id);
+
+        if(!tecnicoDto.getSenha().equals(oldTecnico.getSenha())) {
+            tecnicoDto.setSenha(encoder.encode(tecnicoDto.getSenha()));
+        };
+
         validaPorCpfEEmail(tecnicoDto);
 
         oldTecnico = new Tecnico(tecnicoDto);
